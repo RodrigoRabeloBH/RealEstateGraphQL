@@ -1,0 +1,17 @@
+version: "3"
+services:
+  realstate-api:
+    build: .
+    restart: always
+    ports:
+      - 7000:80
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "realstate#2021"
+      MSSQL_PID: Express
+    ports:
+      - 1433:1433
+ 
