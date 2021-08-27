@@ -40,7 +40,6 @@ namespace RealStateManage.API.Controllers
             }
             catch (Exception ex)
             {
-
                 _logger.LogError(ex, ex.Message);
 
                 return StatusCode(500);
@@ -66,7 +65,6 @@ namespace RealStateManage.API.Controllers
             }
             catch (Exception ex)
             {
-
                 _logger.LogError(ex, ex.Message);
 
                 return StatusCode(500);
