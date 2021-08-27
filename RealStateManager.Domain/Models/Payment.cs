@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace RealStateManager.Domain.Models
 {
@@ -8,5 +9,9 @@ namespace RealStateManager.Domain.Models
         public DateTime CreatedDate { get; set; }
         public DateTime OverdueDate { get; set; }
         public bool Paid { get; set; }
+        public int PropertyId { get; set; }
+
+        [JsonIgnore]
+        public Property Property { get; set; }
     }
 }

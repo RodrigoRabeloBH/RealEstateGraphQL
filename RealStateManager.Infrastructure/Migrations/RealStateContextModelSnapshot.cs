@@ -15,7 +15,7 @@ namespace RealStateManager.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.11")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -35,7 +35,7 @@ namespace RealStateManager.Infrastructure.Migrations
                     b.Property<bool>("Paid")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PropertyId")
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Value")
@@ -77,9 +77,11 @@ namespace RealStateManager.Infrastructure.Migrations
 
             modelBuilder.Entity("RealStateManager.Domain.Models.Payment", b =>
                 {
-                    b.HasOne("RealStateManager.Domain.Models.Property", null)
+                    b.HasOne("RealStateManager.Domain.Models.Property", "Property")
                         .WithMany("Payments")
-                        .HasForeignKey("PropertyId");
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

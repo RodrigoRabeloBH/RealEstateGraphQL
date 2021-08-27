@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RealStateManager.Infrastructure;
+using RealStateManage.API.Extensions;
+using RealStateManager.Application.Extension;
 using RealStateManager.Infrastructure.Extensions;
 
 namespace RealStateManage.API
@@ -20,11 +20,14 @@ namespace RealStateManage.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RealStateContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddRealStateInfrastructureExtensions(Configuration);
 
-            services.AddRealStateInfrastructureExtensions();
+            services.AddApplicationServicesExtensions();
 
-            services.AddControllers();
+            services.AddSwaggerServicesExtensions();
+
+            services.AddControllers()
+            .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -38,6 +41,8 @@ namespace RealStateManage.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UserSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {

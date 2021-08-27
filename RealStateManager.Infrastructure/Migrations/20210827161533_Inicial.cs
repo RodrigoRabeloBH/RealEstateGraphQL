@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RealStateManager.Infrastructure.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace RealStateManager.Infrastructure.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     OverdueDate = table.Column<DateTime>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
-                    PropertyId = table.Column<int>(nullable: true)
+                    PropertyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace RealStateManager.Infrastructure.Migrations
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
